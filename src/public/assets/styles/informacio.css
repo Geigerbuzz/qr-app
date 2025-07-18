@@ -1,0 +1,91 @@
+body { /* Estilo general de toda la página */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; 
+}
+
+/* Estilo del contenedor con la información */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px; /* Añadido un padding mayor para margen interno */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    text-align: justify; /* Texto justificado */
+}
+
+.container h1, 
+.container h3 { /* Específico para los títulos dentro del contenedor */
+    color: #333;
+    margin-top: 4%; /* Margen superior */
+    margin-bottom: 2%; /* Margen inferior */
+}
+
+p { /* Estilo del texto de información */
+    color: #555;
+    line-height: 1.8; /* Incrementa la legibilidad */
+    margin-bottom: 15px; /* Añade espacio inferior entre párrafos */
+}
+
+ul {
+    color: #555;
+    line-height: 1.6;
+    margin-left: 20px; /* Espaciado de listas */
+}
+
+/* Estilos de los títulos en bltContent */
+#bltContent h5 {
+    margin-top: 2%; /* Margen superior */
+    margin-bottom: 1%; /* Margen inferior */
+    color: #333; /* Asegurar que el color sea consistente */
+}
+
+/* Estilos botón volver atrás */
+.back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.backbtn {
+    width: 60px;
+}
+
+/* Botón de contactar centrado y profesional */
+#contactBtn {
+    display: inline-block;
+    margin: 20px auto 0 auto; /* Margen superior e inferior */
+    padding: 10px 20px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo profesional */
+    color: #fff; /* Color del texto */
+    font-size: 16px; /* Tamaño del texto */
+    font-weight: bold;
+    border: none;
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease; /* Animación para el hover */
+}
+
+/* Hover del botón de contactar */
+#contactBtn:hover {
+    background-color: #0056b3; /* Color más oscuro en hover */
+}
+
+/* Alinear el botón de contactar al centro */
+.container #contactBtn {
+    display: block; /* Hacerlo bloque para usar margin auto */
+    text-align: center;
+    margin: 30px auto; /* Centrar horizontalmente */
+}
+
+/* Ajustes para asegurar que el texto y elementos tengan espacio */
+.container * {
+    margin: 0; /* Eliminamos márgenes predefinidos */
+    padding: 2;
+    box-sizing: border-box;
+}
+

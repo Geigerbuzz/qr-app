@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <!-- Importaciones de los estilos CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/styles/informacio.css">
+</head>
+<body>
+    <!-- Botón para volver atrás -->
+    <div class="back">
+        <a href="settings.html"><img src="assets/images/atras.png" class="backbtn" alt="Volver"></a>
+    </div>
+
+    <!-- Contenedor de la información -->
+    <div class="container">
+        <!-- Titulo -->
+        <h1 id="infoTitle" class="text-center" style="margin: 5%;"></h1>
+
+        <!-- Introducción -->
+        <h3 id="introTitle"></h3>
+        <p id="introText"></p>
+
+        <!-- Compatibilidad -->
+        <h3 id="compatibleTitle"></h3>
+        <p id="compatible"></p>
+        <ul id="compatibleList"></ul>
+
+        <!-- Conexión por Bluetooth -->
+        <h3 id="bltTitle"></h3>
+        <div id="bltContent"></div>
+
+        <!-- Accesibilidad -->
+        <h3 id="accessibilityTitle"></h3>
+        <ul id="accessibilityList"></ul>
+
+        <!-- Agradecimientos -->
+        <h3 id="gratitudeTitle"></h3>
+        <p id="gratitudeText"></p>
+
+        <!-- Contacto -->
+        <h3 id="contactTitle"></h3>
+        <p id="contactText"></p>
+        <button id="contactBtn" class="btn btn-primary" onclick="window.open('https://www.scratchjrtactile.org/contact-us', '_blank')"></button>
+    </div>
+
+    <!-- Script de idioma -->
+    <script src="./assets/js/idioma.js"></script>
+    <script>
+        function cargarInformacion() {
+            const idioma = localStorage.getItem('idioma') || 'es'; // Obtener idioma seleccionado
+            const translationsContent = translations[idioma]?.infoContent;
+    
+            if (!translationsContent) return;
+    
+            // Establecer el título dinámico de la página
+            document.title = translations[idioma]?.infoTitle || 'Información';
+    
+            // Aplicar las traducciones a los elementos por ID
+            document.getElementById('infoTitle').textContent = translations[idioma]?.infoTitle || '';
+            document.getElementById('introTitle').textContent = translationsContent.introTitle || '';
+            document.getElementById('introText').innerHTML = translationsContent.intro || '';
+            document.getElementById('compatibleTitle').textContent = translationsContent.compatibleTitle || '';
+    
+            // Asignar el texto de "compatible" al párrafo correspondiente
+            document.getElementById('compatible').textContent = translationsContent.compatible || '';
+    
+            // Generar la lista de compatibilidad
+            const compatibleList = document.getElementById('compatibleList');
+            compatibleList.innerHTML = '';
+            translationsContent.comptaibleList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                compatibleList.appendChild(li);
+            });
+    
+            document.getElementById('bltTitle').textContent = translationsContent.bltTitle || '';
+            const bltContent = document.getElementById('bltContent');
+            bltContent.innerHTML = '';
+    
+            Object.entries(translationsContent.bltList).forEach(([key, value]) => {
+                const section = document.createElement('div');
+                
+                // Títulos como <h5>
+                const title = document.createElement('h5');
+                title.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+                section.appendChild(title);
+    
+                // Descripciones principales como texto normal
+                if (value.desc) {
+                    const desc = document.createElement('p');
+                    desc.textContent = value.desc;
+                    section.appendChild(desc);
+                }
+    
+                // Detalles adicionales como texto normal
+                if (value.detail) {
+                    const detail = document.createElement('p');
+                    detail.innerHTML = value.detail;
+                    section.appendChild(detail);
+                }
+    
+                // Lista de pasos, si existen
+                if (value.steps) {
+                    const stepsList = document.createElement('ul');
+                    value.steps.forEach(step => {
+                        const stepItem = document.createElement('li');
+                        stepItem.innerHTML = step;
+                        stepsList.appendChild(stepItem);
+                    });
+                    section.appendChild(stepsList);
+                }
+    
+                bltContent.appendChild(section);
+            });
+    
+            // Corregir accesibilidad: desc como texto normal
+            document.getElementById('accessibilityTitle').textContent = translationsContent.accessibilityTitle || ''; // Título correcto
+            const accessibilityDesc = document.createElement('p'); // Crear párrafo para accessibility.desc
+            accessibilityDesc.textContent = translationsContent.accessibility.desc || ''; // Asignar texto
+            document.getElementById('accessibilityList').before(accessibilityDesc); // Insertar antes de la lista
+    
+            const accessibilityList = document.getElementById('accessibilityList');
+            accessibilityList.innerHTML = '';
+            translationsContent.accessibility.list.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                accessibilityList.appendChild(li);
+            });
+    
+            document.getElementById('gratitudeTitle').textContent = translationsContent.gratitudeList || '';
+            document.getElementById('gratitudeText').textContent = translationsContent.gratitude || '';
+    
+            document.getElementById('contactTitle').textContent = translationsContent.contactTitle || '';
+            document.getElementById('contactText').textContent = translationsContent.contact || '';
+            document.getElementById('contactBtn').textContent = translationsContent.contactBtn || '';
+        }
+    
+        // Cargar el contenido traducido al cargar la página
+        window.onload = cargarInformacion;
+    </script>    
+    
+</body>
+</html>

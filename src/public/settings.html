@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title data-translate="settingsTitle">Configuración</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png"/>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" crossorigin="anonymous"/>
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="./assets/styles/settings.css" />
+</head>
+<body>
+    <!-- Botón volver -->
+    <div class="back">
+        <a href="index.html"><img src="assets/images/atras.png" class="backbtn" alt="Volver" /></a>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container mt-4">
+        <h1 data-translate="configTitle">Configuración</h1>
+
+        <div class="buttons mt-4">
+            <!-- Botón Información -->
+            <a href="Informacio.html">
+                <button class="btn btn-primary" data-translate="informacionBtn">Información</button>
+            </a>
+
+            <!-- Selector de idioma -->
+            <select id="idiomaSelect" class="btn btn-primary" onchange="cambiarIdioma()">
+                <option value="es" selected>Español</option>
+                <option value="ca">Catalán</option>
+                <option value="en">Inglés</option>
+                <option value="de">Alemán</option>
+                <option value="pt">Portugués</option>
+            </select>
+
+        </div>
+    </div>
+
+    <!-- Script de idioma -->
+    <script src="./assets/js/idioma.js"></script>
+    <script>
+        function cambiarIdioma() {
+            const idiomaSeleccionado = document.getElementById('idiomaSelect').value;
+            localStorage.setItem('idioma', idiomaSeleccionado);
+            aplicarTraduccion(idiomaSeleccionado);
+        }
+
+        window.onload = function () {
+            const idioma = localStorage.getItem('idioma') || 'es';
+            document.getElementById('idiomaSelect').value = idioma;
+            aplicarTraduccion(idioma);
+        };
+    </script>
+</body>
+</html>

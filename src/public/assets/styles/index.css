@@ -1,0 +1,96 @@
+/* Logo icon */
+.logo {
+    position: absolute;
+    top: -25px;
+    left: 1%;
+}
+
+.logo img {
+    height: 150px;
+}
+
+/* Settings logo*/
+.settings img {
+    width: 60px;
+    position: absolute;
+    top: 20px;
+    right: 4%;
+}
+
+/* Botón bluetooth */
+.bluetooth {
+    position: absolute;
+    top: 20px;
+    left: 40%;
+}
+
+.bluetooth button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bluetooth img {
+    height: 60px;
+}
+
+/* Botones open/close y send */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: flex-end; 
+    position: absolute;  
+    right: 10px;
+    bottom: 10px;
+}
+
+.button {
+    background-color: transparent;
+    border: none;
+    cursor: zoom-in;
+}
+
+.buttons img {
+    width: 150px;
+}
+
+.repeat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: flex-end; 
+    position: absolute;  
+    right: 80px;
+    bottom: 5px;
+}
+
+.repeat img {
+    width: 150px;
+}
+
+/* Canvas principal */
+canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Ajusta según tus necesidades */
+    height: 70%; /* Ajusta según tus necesidades */
+} 
+
+/* Canvas blocs */
+#blocs-canvas {
+    position: absolute;
+    width: 70%;
+    height: 30%;
+    left: 50%;
+    top: calc(50% + 15%); /* 50% para centrar y 15% es la mitad de la altura del canvas */
+    transform: translateX(-50%);
+}
+
