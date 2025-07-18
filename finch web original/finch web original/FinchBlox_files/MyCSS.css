@@ -1,0 +1,116 @@
+/*
+color:textColor;
+*/
+html
+{
+    width: 100%;
+    height: 100%;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+.mainBody
+{
+    background-color:#fff;
+	position: fixed;
+    width: 100%;
+    height: 100%;
+}
+.mainSvg
+{
+    position:absolute;
+	top:0px;
+    left:0px;
+    /*right:0px;
+	bottom:0px;*/
+	height:100%;
+	width:100%;
+    pointer-events: none;
+}
+.mainSvg g
+{
+    pointer-events: auto;
+}
+path{
+	fill-rule:evenodd;
+}
+.noselect {
+	/* from http://stackoverflow.com/questions/826782/css-rule-to-disable-text-selection-highlighting */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.smoothScrollX {
+	overflow-y: hidden; /* has to be scroll, not auto */
+    overflow-x: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.smoothScrollY {
+    overflow-y: scroll; /* has to be scroll, not auto */
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.smoothScrollXY {
+    overflow-y: scroll; /* has to be scroll, not auto */
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+.noScroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.subBody
+{
+    padding:0px;
+    margin:0px;
+}
+.divLayer {
+    position:absolute;
+    top:0px;
+    right:0px;
+    left:0px;
+    bottom:0px;
+    height:100%;
+    width:100%;
+    pointer-events: none;
+}
+.divLayer div {
+    pointer-events: auto;
+}
+
+@font-face {
+  font-family: AvenirHeavy;
+  src: url(Fonts/AEH.ttf);
+}
+
+@font-face {
+  font-family: FredericBlack;
+  src: url(Fonts/FredericBlack.ttf);
+}
+
+@font-face {
+  font-family: FredericRegular;
+  src: url(Fonts/FredericRegular.ttf);
+}
+
+@font-face {
+  font-family: NunitoSans-Regular;
+  src: url(Fonts/NunitoSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: NunitoSans-ExtraBold;
+  src: url(Fonts/NunitoSans-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: Nunito-Regular;
+  src: url(Fonts/Nunito-Regular.ttf);
+}
+
+@font-face {
+  font-family: Nunito-ExtraBold;
+  src: url(Fonts/Nunito-ExtraBold.ttf);
+}
