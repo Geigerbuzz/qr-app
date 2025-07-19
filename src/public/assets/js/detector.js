@@ -30,8 +30,8 @@ function getArucoActionGeneric(id) {
     if ([120, 121, 122, 123, 124, 125, 126,127].includes(id)) return "Forward";
     if ([140, 141, 142, 143, 144, 145].includes(id)) return "Backward";
     if ([110, 111, 112, 113, 114, 115].includes(id)) return "Left";
-    if ([150, 151,152,153,154,155].includes(id)) return "TurnRight";
-    if ([160, 161, 162, 163, 164, 165].includes(id)) return "TurnLeft";
+    if ([160, 161, 162, 163, 164, 165].includes(id)) return "TurnRight";
+    if ([150, 151,152,153,154,155].includes(id)) return "TurnLeft";
     if ([300, 301, 302, 303, 304].includes(id)) return "Sound";
     if ([200, 201, 202, 203, 204, 205].includes(id)) return "Talk";
     if ([370, 371, 372, 373, 374].includes(id)) return "LoopStart";
@@ -107,7 +107,7 @@ function getFinchCommand(id) {
     if ([510, 511, 512, 513, 514].includes(id)) return "x4";
     if ([455, 456].includes(id)) return "RepeatAll";
     
-    if ([100, 101, 102, 103, 104, 105].includes(id)) {
+    if ([120, 121, 122, 123, 124, 125, 126, 127].includes(id)) {
         return {
             type: "finch_move",
             cmd: "move",
@@ -116,7 +116,7 @@ function getFinchCommand(id) {
             speed: 50
         };
     }
-    if ([120, 121, 122, 123, 124, 125, 126, 127].includes(id)) {
+    if ([140, 141, 142, 143, 144, 145].includes(id)) {
         return {
             type: "finch_move",
             cmd: "move",
@@ -125,34 +125,34 @@ function getFinchCommand(id) {
             speed: 50
         };
     }
-    if ([140, 141, 142, 143, 144, 145].includes(id)) {
-        return {
-            type: "finch_move",
-            cmd: "turn",
-            direction: "Left",
-            angle: 90,
-            speed: 50
-        };
-    }
     if ([110, 111, 112, 113, 114, 115].includes(id)) {
         return {
             type: "finch_move",
-            cmd: "turn",
-            direction: "Right",
-            angle: 90,
+            cmd: "move",
+            direction: "Left",
+            distance: 10,
             speed: 50
         };
     }
-    if ([150, 151, 152, 153, 154, 155].includes(id)) {
+    if ([100, 101,102,103,104,105].includes(id)) {
         return {
             type: "finch_move",
-            cmd: "turn",
+            cmd: "move",
             direction: "Right",
-            angle: 90,
+            distance: 10,
             speed: 50
         };
     }
     if ([160, 161, 162, 163, 164, 165].includes(id)) {
+        return {
+            type: "finch_move",
+            cmd: "turn",
+            direction: "Right",
+            angle: 90,
+            speed: 50
+        };
+    }
+    if ([150, 151,152,153,154,155].includes(id)) {
         return {
             type: "finch_move",
             cmd: "turn",
@@ -488,6 +488,7 @@ function RemoveCode() { //Borra los bloques leídos
 function speak(id, lang) { // Función para convertir texto a voz
     console.log(translations[lang]);
     console.log(getArucoActionGeneric(id));
+    console.log("Block ID: " + id);
     utterance = new SpeechSynthesisUtterance(translations[lang][String(getArucoActionGeneric(id))]); // Obtiene el mensaje a leer
     utterance.lang = codigos[lang]; // Establece el idioma
     speechSynthesis.speak(utterance); // Lee el mensaje

@@ -175,42 +175,46 @@ function createFinchTurnCommand(direction, angle, speed) {
 
 // Función para crear comandos de motor del Finch
 function createMotorCommand(leftSpeed, leftTicks, rightSpeed, rightTicks) {
+    if (leftSpeed > 100) { leftSpeed = 100; }
+    if (leftSpeed < -100) { leftSpeed = -100; }
+    if (rightSpeed > 100) { rightSpeed = 100; }
+    if (rightSpeed < -100) { rightSpeed = -100; }
+
+    function scaledVelocity(speed) {
+        const speedScaling = 36 / 100;
+        let vel = Math.round(speed * speedScaling);
+        if (speed > 0 && vel < 3) vel = 3;
+        if (speed < 0 && vel > -3) vel = -3;
+        if (vel > 0 && vel < 128) {
+            return vel + 128;
+        } else if (vel <= 0 && vel > -128) {
+            return Math.abs(vel);
+        } else {
+            console.error("bad speed value " + speed);
+            return 0;
+        }
+    }
+
     const buffer = new Uint8Array(20);
-    
-    // Cabecera del comando
-    buffer[0] = 0xD0; // Comando de motor
-    
-    // Velocidad del motor izquierdo
-    if (leftSpeed >= 0) {
-        buffer[1] = leftSpeed;
-    } else {
-        buffer[1] = 128 + Math.abs(leftSpeed);
-    }
-    
-    // Ticks del motor izquierdo
-    buffer[2] = leftTicks & 0xFF;
-    buffer[3] = (leftTicks >> 8) & 0xFF;
-    buffer[4] = (leftTicks >> 16) & 0xFF;
-    buffer[5] = (leftTicks >> 24) & 0xFF;
-    
-    // Velocidad del motor derecho
-    if (rightSpeed >= 0) {
-        buffer[6] = rightSpeed;
-    } else {
-        buffer[6] = 128 + Math.abs(rightSpeed);
-    }
-    
-    // Ticks del motor derecho
-    buffer[7] = rightTicks & 0xFF;
+    buffer[0] = 0xD2; // Comando para motor + LED
+    buffer[1] = 0x40; // Solo cambio de motor.
+
+    // Velocidad del motor izquierdo.
+    buffer[2] = scaledVelocity(leftSpeed);
+
+    // Ticks izquierdos.
+    buffer[3] = (leftTicks >> 16) & 0xFF;
+    buffer[4] = (leftTicks >> 8) & 0xFF;
+    buffer[5] = leftTicks & 0xFF;
+
+    // Velocidad del motor derecho.
+    buffer[6] = scaledVelocity(rightSpeed);
+
+    // Ticks derechos.
+    buffer[7] = (rightTicks >> 16) & 0xFF;
     buffer[8] = (rightTicks >> 8) & 0xFF;
-    buffer[9] = (rightTicks >> 16) & 0xFF;
-    buffer[10] = (rightTicks >> 24) & 0xFF;
-    
-    // Rellenar el resto con ceros
-    for (let i = 11; i < 20; i++) {
-        buffer[i] = 0;
-    }
-    
+    buffer[9] = rightTicks & 0xFF;
+
     return buffer;
 }
 
@@ -279,8 +283,10 @@ async function sendRobotCommand(action, robotType, encodeData) {
     if (robotType === "Finch" && typeof action === "object" && action.type === "finch_move") {
         // Comando especial del Finch
         if (action.cmd === "move") {
+            if (action.distance == null) throw new TypeError("action.distance is null");
             message = createFinchMoveCommand(action.direction, action.distance, action.speed);
         } else if (action.cmd === "turn") {
+            if (action.angle == null) throw new TypeError("action.angle is null");
             message = createFinchTurnCommand(action.direction, action.angle, action.speed);
         }
         
